@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Resources">
+      <UniqueIdentifier>b016348c-e67f-430b-8242-f166a839c809</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tga;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="pch.cpp" />
+    <ClCompile Include="..\..\CSSLayout.c" />
+    <ClCompile Include="..\..\CSSNodeList.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="pch.h" />
+    <ClInclude Include="..\..\CSSLayout.h" />
+    <ClInclude Include="..\..\CSSLayout-internal.h" />
+    <ClInclude Include="..\..\CSSMacros.h" />
+    <ClInclude Include="..\..\CSSNodeList.h" />
+  </ItemGroup>
+</Project>
