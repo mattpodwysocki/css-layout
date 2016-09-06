@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.InteropServices;
 
 namespace CSSLayoutApp
 {
@@ -6,11 +7,13 @@ namespace CSSLayoutApp
     {
         private bool _isDisposed;
         private readonly IntPtr _cssNode;
+        private readonly IntPtr _context;
 
         public CSSNode()
         {
             _cssNode = Native.CSSNodeNew();
-            //Native.CSSNodeInit(_cssNode);
+            _context = (IntPtr)GCHandle.Alloc(this);
+            Native.CSSNodeSetContext(_cssNode, _context);
         }
 
         public CSSNode(IntPtr cssNode)
@@ -32,6 +35,7 @@ namespace CSSLayoutApp
             {
                 _isDisposed = true;
                 Native.CSSNodeFree(_cssNode);
+                GCHandle.FromIntPtr(_context).Free();
             }
         }
 
@@ -121,6 +125,42 @@ namespace CSSLayoutApp
             set
             {
                 Native.CSSNodeStyleSetDirection(_cssNode, value);
+            }
+        }
+
+        public CSSFlexDirection FlexDirection
+        {
+            get
+            {
+                return Native.CSSNodeStyleGetFlexDirection(_cssNode);
+            }
+            set
+            {
+                Native.CSSNodeStyleSetFlexDirection(_cssNode, value);
+            }
+        }
+
+        public CSSJustify JustifyContent
+        {
+            get
+            {
+                return Native.CSSNodeStyleGetJustifyContent(_cssNode);
+            }
+            set
+            {
+                Native.CSSNodeStyleSetJustifyContent(_cssNode, value);
+            }
+        }
+
+        public CSSAlign AlignContent
+        {
+            get
+            {
+                return Native.CSSNodeStyleGetAlignContent(_cssNode);
+            }
+            set
+            {
+                Native.CSSNodeStyleSetAlignContent(_cssNode, value);
             }
         }
     }
