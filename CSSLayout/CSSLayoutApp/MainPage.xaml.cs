@@ -25,9 +25,9 @@ namespace CSSLayoutApp
         public MainPage()
         {
             this.InitializeComponent();
-            var ptr = Native.CSSNodeNew();
-            Native.CSSNodeInit(ptr);
-            Native.CSSNodeFree(ptr);
+            var node = new CSSNode();
+            System.Diagnostics.Debug.WriteLine(node.Count);
+            node.Dispose();
         }
     }
 }
