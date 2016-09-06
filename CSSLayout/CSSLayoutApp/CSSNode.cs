@@ -163,5 +163,53 @@ namespace CSSLayoutApp
                 Native.CSSNodeStyleSetAlignContent(_cssNode, value);
             }
         }
+
+        public CSSAlign AlignItems
+        {
+            get
+            {
+                return Native.CSSNodeStyleGetAlignItems(_cssNode);
+            }
+            set
+            {
+                Native.CSSNodeStyleSetAlignItems(_cssNode, value);
+            }
+        }
+
+        public CSSAlign AlignSelf
+        {
+            get
+            {
+                return Native.CSSNodeStyleGetAlignSelf(_cssNode);
+            }
+            set
+            {
+                Native.CSSNodeStyleSetAlignSelf(_cssNode, value);
+            }
+        }
+
+        public CSSPositionType PositionType
+        {
+            get
+            {
+                return Native.CSSNodeStyleGetPositionType(_cssNode);
+            }
+            set
+            {
+                Native.CSSNodeStyleSetPositionType(_cssNode, value);
+            }
+        }
+
+        public CSSWrapType FlexWrap
+        {
+            get
+            {
+                return Native.CSSNodeStyleGetFlexWrap(_cssNode);
+            }
+            set
+            {
+                Native.CSSNodeStyleSetFlexWrap(_cssNode, value);
+            }
+        }
     }
 }
