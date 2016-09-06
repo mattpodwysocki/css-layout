@@ -96,13 +96,27 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="CSSAlign.cs" />
+    <Compile Include="CSSCachedMeasurement.cs" />
+    <Compile Include="CSSDimension.cs" />
     <Compile Include="CSSDIrection.cs" />
+    <Compile Include="CSSEdge.cs" />
     <Compile Include="CSSFlexDirection.cs" />
     <Compile Include="CSSJustify.cs" />
+    <Compile Include="CSSLayout.cs" />
+    <Compile Include="CSSMeasureFunc.cs" />
+    <Compile Include="CSSMeasureMode.cs" />
+    <Compile Include="CSSNode.cs" />
     <Compile Include="CSSOverflow.cs" />
+    <Compile Include="CSSPositionType.cs" />
+    <Compile Include="CSSPrintFunc.cs" />
+    <Compile Include="CSSPrintOptions.cs" />
+    <Compile Include="CSSSize.cs" />
+    <Compile Include="CSSStyle.cs" />
+    <Compile Include="CSSWrapType.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Native.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -112,6 +126,9 @@
     <None Include="CSSLayoutApp_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="CSSLayout.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />

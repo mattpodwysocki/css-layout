@@ -31,20 +31,20 @@ static const unsigned long __nan[2] = {0xffffffff, 0x7fffffff};
 
 CSS_EXTERN_C_BEGIN
 
-typedef enum CSSDirection {
+__declspec(dllexport) typedef enum CSSDirection {
   CSSDirectionInherit,
   CSSDirectionLTR,
   CSSDirectionRTL,
 } CSSDirection;
 
-typedef enum CSSFlexDirection {
+__declspec(dllexport) typedef enum CSSFlexDirection {
   CSSFlexDirectionColumn,
   CSSFlexDirectionColumnReverse,
   CSSFlexDirectionRow,
   CSSFlexDirectionRowReverse,
 } CSSFlexDirection;
 
-typedef enum CSSJustify {
+__declspec(dllexport) typedef enum CSSJustify {
   CSSJustifyFlexStart,
   CSSJustifyCenter,
   CSSJustifyFlexEnd,
@@ -52,14 +52,14 @@ typedef enum CSSJustify {
   CSSJustifySpaceAround,
 } CSSJustify;
 
-typedef enum CSSOverflow {
+__declspec(dllexport) typedef enum CSSOverflow {
   CSSOverflowVisible,
   CSSOverflowHidden,
 } CSSOverflow;
 
 // Note: auto is only a valid value for alignSelf. It is NOT a valid value for
 // alignItems.
-typedef enum CSSAlign {
+__declspec(dllexport) typedef enum CSSAlign {
   CSSAlignAuto,
   CSSAlignFlexStart,
   CSSAlignCenter,
@@ -67,29 +67,29 @@ typedef enum CSSAlign {
   CSSAlignStretch,
 } CSSAlign;
 
-typedef enum CSSPositionType {
+__declspec(dllexport) typedef enum CSSPositionType {
   CSSPositionTypeRelative,
   CSSPositionTypeAbsolute,
 } CSSPositionType;
 
-typedef enum CSSWrapType {
+__declspec(dllexport) typedef enum CSSWrapType {
   CSSWrapTypeNoWrap,
   CSSWrapTypeWrap,
 } CSSWrapType;
 
-typedef enum CSSMeasureMode {
+__declspec(dllexport) typedef enum CSSMeasureMode {
   CSSMeasureModeUndefined,
   CSSMeasureModeExactly,
   CSSMeasureModeAtMost,
   CSSMeasureModeCount,
 } CSSMeasureMode;
 
-typedef enum CSSDimension {
+__declspec(dllexport) typedef enum CSSDimension {
   CSSDimensionWidth,
   CSSDimensionHeight,
 } CSSDimension;
 
-typedef enum CSSEdge {
+__declspec(dllexport) typedef enum CSSEdge {
   CSSEdgeLeft,
   CSSEdgeTop,
   CSSEdgeRight,
@@ -102,19 +102,19 @@ typedef enum CSSEdge {
   CSSEdgeCount,
 } CSSEdge;
 
-typedef enum CSSPrintOptions {
+__declspec(dllexport) typedef enum CSSPrintOptions {
   CSSPrintOptionsLayout = 1,
   CSSPrintOptionsStyle = 2,
   CSSPrintOptionsChildren = 4,
 } CSSPrintOptions;
 
-typedef struct CSSSize {
+__declspec(dllexport) typedef struct CSSSize {
   float width;
   float height;
 } CSSSize;
 
-typedef struct CSSNode *CSSNodeRef;
-typedef CSSSize (*CSSMeasureFunc)(void *context,
+__declspec(dllexport) typedef struct CSSNode *CSSNodeRef;
+__declspec(dllexport) typedef CSSSize (*CSSMeasureFunc)(void *context,
                                   float width,
                                   CSSMeasureMode widthMode,
                                   float height,
@@ -122,16 +122,16 @@ typedef CSSSize (*CSSMeasureFunc)(void *context,
 typedef void (*CSSPrintFunc)(void *context);
 
 // CSSNode
-CSSNodeRef CSSNodeNew();
-void CSSNodeInit(const CSSNodeRef node);
-void CSSNodeFree(const CSSNodeRef node);
+__declspec(dllexport) CSSNodeRef CSSNodeNew();
+__declspec(dllexport) void CSSNodeInit(const CSSNodeRef node);
+__declspec(dllexport) void CSSNodeFree(const CSSNodeRef node);
 
-void CSSNodeInsertChild(const CSSNodeRef node, const CSSNodeRef child, const uint32_t index);
-void CSSNodeRemoveChild(const CSSNodeRef node, const CSSNodeRef child);
-CSSNodeRef CSSNodeGetChild(const CSSNodeRef node, const uint32_t index);
-uint32_t CSSNodeChildCount(const CSSNodeRef node);
+__declspec(dllexport) void CSSNodeInsertChild(const CSSNodeRef node, const CSSNodeRef child, const uint32_t index);
+__declspec(dllexport) void CSSNodeRemoveChild(const CSSNodeRef node, const CSSNodeRef child);
+__declspec(dllexport) CSSNodeRef CSSNodeGetChild(const CSSNodeRef node, const uint32_t index);
+__declspec(dllexport) uint32_t CSSNodeChildCount(const CSSNodeRef node);
 
-void CSSNodeCalculateLayout(const CSSNodeRef node,
+__declspec(dllexport) void CSSNodeCalculateLayout(const CSSNodeRef node,
                             const float availableWidth,
                             const float availableHeight,
                             const CSSDirection parentDirection);
@@ -142,26 +142,26 @@ void CSSNodeCalculateLayout(const CSSNodeRef node,
 // measure functions
 // depends on information not known to CSSLayout they must perform this dirty
 // marking manually.
-void CSSNodeMarkDirty(const CSSNodeRef node);
-bool CSSNodeIsDirty(const CSSNodeRef node);
+__declspec(dllexport) void CSSNodeMarkDirty(const CSSNodeRef node);
+__declspec(dllexport) bool CSSNodeIsDirty(const CSSNodeRef node);
 
-void CSSNodePrint(const CSSNodeRef node, const CSSPrintOptions options);
+__declspec(dllexport) void CSSNodePrint(const CSSNodeRef node, const CSSPrintOptions options);
 
-bool CSSValueIsUndefined(const float value);
+__declspec(dllexport) bool CSSValueIsUndefined(const float value);
 
 #define CSS_NODE_PROPERTY(type, name, paramName)                \
-  void CSSNodeSet##name(const CSSNodeRef node, type paramName); \
-  type CSSNodeGet##name(const CSSNodeRef node);
+  __declspec(dllexport) void CSSNodeSet##name(const CSSNodeRef node, type paramName); \
+  __declspec(dllexport) type CSSNodeGet##name(const CSSNodeRef node);
 
 #define CSS_NODE_STYLE_PROPERTY(type, name, paramName)                     \
-  void CSSNodeStyleSet##name(const CSSNodeRef node, const type paramName); \
-  type CSSNodeStyleGet##name(const CSSNodeRef node);
+  __declspec(dllexport) void CSSNodeStyleSet##name(const CSSNodeRef node, const type paramName); \
+  __declspec(dllexport) type CSSNodeStyleGet##name(const CSSNodeRef node);
 
 #define CSS_NODE_STYLE_EDGE_PROPERTY(type, name, paramName)                                    \
-  void CSSNodeStyleSet##name(const CSSNodeRef node, const CSSEdge edge, const type paramName); \
-  type CSSNodeStyleGet##name(const CSSNodeRef node, const CSSEdge edge);
+  __declspec(dllexport) void CSSNodeStyleSet##name(const CSSNodeRef node, const CSSEdge edge, const type paramName); \
+  __declspec(dllexport) type CSSNodeStyleGet##name(const CSSNodeRef node, const CSSEdge edge);
 
-#define CSS_NODE_LAYOUT_PROPERTY(type, name) type CSSNodeLayoutGet##name(const CSSNodeRef node);
+#define CSS_NODE_LAYOUT_PROPERTY(type, name) __declspec(dllexport) type CSSNodeLayoutGet##name(const CSSNodeRef node);
 
 CSS_NODE_PROPERTY(void *, Context, context);
 CSS_NODE_PROPERTY(CSSMeasureFunc, MeasureFunc, measureFunc);

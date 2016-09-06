@@ -7,6 +7,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CSSLayout", "CSSLayout.vcxp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSSLayoutApp", "..\CSSLayoutApp\CSSLayoutApp.csproj", "{9386FFF1-FA2B-484D-90C8-D9934B8B3ACB}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CSSLayoutNative", "..\CSSLayoutNative\CSSLayoutNative.vcxproj", "{04B35731-87AF-416E-B247-68DE059B6D35}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|ARM = Debug|ARM
@@ -47,6 +49,16 @@ Global
 		{9386FFF1-FA2B-484D-90C8-D9934B8B3ACB}.Release|x86.ActiveCfg = Release|x86
 		{9386FFF1-FA2B-484D-90C8-D9934B8B3ACB}.Release|x86.Build.0 = Release|x86
 		{9386FFF1-FA2B-484D-90C8-D9934B8B3ACB}.Release|x86.Deploy.0 = Release|x86
+		{04B35731-87AF-416E-B247-68DE059B6D35}.Debug|ARM.ActiveCfg = Debug|Win32
+		{04B35731-87AF-416E-B247-68DE059B6D35}.Debug|x64.ActiveCfg = Debug|x64
+		{04B35731-87AF-416E-B247-68DE059B6D35}.Debug|x64.Build.0 = Debug|x64
+		{04B35731-87AF-416E-B247-68DE059B6D35}.Debug|x86.ActiveCfg = Debug|Win32
+		{04B35731-87AF-416E-B247-68DE059B6D35}.Debug|x86.Build.0 = Debug|Win32
+		{04B35731-87AF-416E-B247-68DE059B6D35}.Release|ARM.ActiveCfg = Release|Win32
+		{04B35731-87AF-416E-B247-68DE059B6D35}.Release|x64.ActiveCfg = Release|x64
+		{04B35731-87AF-416E-B247-68DE059B6D35}.Release|x64.Build.0 = Release|x64
+		{04B35731-87AF-416E-B247-68DE059B6D35}.Release|x86.ActiveCfg = Release|Win32
+		{04B35731-87AF-416E-B247-68DE059B6D35}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
