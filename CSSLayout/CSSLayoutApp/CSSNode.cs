@@ -77,6 +77,12 @@ namespace CSSLayoutApp
             Native.CSSNodeRemoveChild(_cssNode, node._cssNode);
         }
 
+        public void CalculateLayout(float availableWidth, float availableHeight, CSSDirection parentDirection)
+        {
+            CheckDisposed();
+            Native.CSSNodeCalculateLayout(_cssNode, availableWidth, availableHeight, parentDirection);
+        }
+
         public bool IsDirty
         {
             get
