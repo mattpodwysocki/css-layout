@@ -10,7 +10,9 @@ namespace CSSLayoutApp
 
         void Reset();
 
-        bool IsDirty { get; set; }
+        bool IsDirty { get; }
+
+        void MarkDirty();
 
         bool IsTextNode { get; set; }
 
@@ -58,6 +60,38 @@ namespace CSSLayoutApp
 
         float FlexBasis { get; set; }
 
+        Spacing Margin { get; set; }
 
+        Spacing Padding { get; set; }
+
+        Spacing Border { get; set; }
+
+        Spacing Position { get; set; }
+
+        float StyleWidth { get; set; }
+
+        float StyleHeight { get; set; }
+
+        float StyleMaxWidth { get; set; }
+
+        float StyleMaxHeight { get; set; }
+
+        float StyleMinWidth { get; set; }
+
+        float StyleMinHeight { get; set; }
+
+        float LayoutX { get; set; }
+
+        float LayoutY { get; set; }
+
+        float LayoutWidth { get; set; }
+
+        float LayoutHeight { get; set; }
+
+        CSSDirection LayoutDirection { get; }
+
+        CSSOverflow Overflow { get; set; }
+
+        object Data { get; set; }
     }
 }

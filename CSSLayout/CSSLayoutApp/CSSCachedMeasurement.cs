@@ -2,15 +2,13 @@
 
 namespace CSSLayoutApp
 {
-    [StructLayout(LayoutKind.Sequential)]
-    public struct CSSCachedMeasurement
+    public class CSSCachedMeasurement
     {
-        public float availableWidth;
-        public float availableHeight;
-        public CSSMeasureMode widthMeasureMode;
-        public CSSMeasureMode heightMeasureMode;
-
-        public float computedWidth;
-        public float computedHeight;
+        public float AvailableWidth { get; set; }
+        public float AvailableHeight { get; set; }
+        public CSSMeasureMode? WidthMeasureMode { get; set; }
+        public CSSMeasureMode? HeightMeasureMode { get; set; }
+        public float ComputedWidth { get; set; }
+        public float ComputedHeight { get; set; }
     }
 }

@@ -3,11 +3,467 @@ using System.Runtime.InteropServices;
 
 namespace CSSLayoutApp
 {
-    public class CSSNode : IDisposable
+    public class CSSNode : IDisposable, ICSSNode
     {
+        private enum LayoutState
+        {
+            DIRTY,
+
+            HAS_NEW_LAYOUT,
+
+            UP_TO_DATE
+        }
+
+        private readonly CSSStyle _style = new CSSStyle();
+        private CSSLayout _layout = new CSSLayout();
+
+
         private bool _isDisposed;
         private readonly IntPtr _cssNode;
         private readonly IntPtr _context;
+
+        public int LineIndex { get; set; }
+
+        public bool IsDirty
+        {
+            get
+            {
+                CheckDisposed();
+                return Native.CSSNodeIsDirty(_cssNode);
+            }
+        }
+
+        public void MarkDirty()
+        {
+            CheckDisposed();
+            Native.CSSNodeMarkDirty(_cssNode);
+        }
+
+        public bool IsTextNode
+        {
+            get
+            {
+                CheckDisposed();
+                return Native.CSSNodeGetIsTextnode(_cssNode);
+            }
+
+            set
+            {
+                CheckDisposed();
+                Native.CSSNodeSetIsTextnode(_cssNode, value);
+            }
+        }
+
+        public bool HasNewLayout
+        {
+            get
+            {
+                CheckDisposed();
+                return Native.CSSNodeGetHasNewLayout(_cssNode);
+            }
+
+            set
+            {
+                CheckDisposed();
+                Native.CSSNodeSetHasNewLayout(_cssNode, value);
+            }
+        }
+
+        public ICSSNode Parent
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public bool IsMeasureDefined
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public CSSDirection StyleDirection
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public CSSFlexDirection FlexDirection
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public CSSJustify JustifyContent
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public CSSAlign AlignItems
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public CSSAlign AlignSelf
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public CSSAlign AlignContent
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public CSSPositionType PositionType
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public CSSWrapType Wrap
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public float Flex
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public float FlexGrow
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public float FlexShrink
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public float FlexBasis
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public Spacing Margin
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public Spacing Padding
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public Spacing Border
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public Spacing Position
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public float StyleWidth
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public float StyleHeight
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public float StyleMaxWidth
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public float StyleMaxHeight
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public float StyleMinWidth
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public float StyleMinHeight
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public float LayoutX
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public float LayoutY
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public float LayoutWidth
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public float LayoutHeight
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public CSSDirection LayoutDirection
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public CSSOverflow Overflow
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public object Data
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public ICSSNode this[int index]
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
 
         public CSSNode()
         {
@@ -31,7 +487,13 @@ namespace CSSLayoutApp
 
         public void Dispose()
         {
-            if (!_isDisposed)
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!_isDisposed && disposing)
             {
                 _isDisposed = true;
                 Native.CSSNodeFree(_cssNode);
@@ -39,183 +501,44 @@ namespace CSSLayoutApp
             }
         }
 
-        public CSSNode this[int index]
+        public void Initialize()
         {
-            get
-            {
-                CheckDisposed();
-                var ptr = Native.CSSNodeGetChild(_cssNode, (uint)index);
-                return new CSSNode(ptr);
-            }
+            throw new NotImplementedException();
         }
 
-        public int Count
+        public void Reset()
         {
-            get
-            {
-                CheckDisposed();
-                return (int)Native.CSSNodeChildCount(_cssNode);
-            }
+            throw new NotImplementedException();
         }
 
-        public void Add(CSSNode node)
+        public void MarkLayoutSeen()
         {
-            CheckDisposed();
-            var index = Native.CSSNodeChildCount(_cssNode);
-            Native.CSSNodeInsertChild(_cssNode, node._cssNode, (uint)index);
+            throw new NotImplementedException();
         }
 
-        public void Insert(int index, CSSNode node)
+        public bool ValuesEqual(float f1, float f2)
         {
-            CheckDisposed();
-            Native.CSSNodeInsertChild(_cssNode, node._cssNode, (uint)index);
+            throw new NotImplementedException();
         }
 
-        public void Remove(CSSNode node)
+        public void Insert(int index, ICSSNode node)
         {
-            CheckDisposed();
-            Native.CSSNodeRemoveChild(_cssNode, node._cssNode);
+            throw new NotImplementedException();
         }
 
-        public void CalculateLayout(float availableWidth, float availableHeight, CSSDirection parentDirection)
+        public int IndexOf(ICSSNode node)
         {
-            CheckDisposed();
-            Native.CSSNodeCalculateLayout(_cssNode, availableWidth, availableHeight, parentDirection);
+            throw new NotImplementedException();
         }
 
-        public bool IsDirty
+        public void SetMeasureFunction(MeasureFunction measureFunction)
         {
-            get
-            {
-                CheckDisposed();
-                return Native.CSSNodeIsDirty(_cssNode);
-            }
+            throw new NotImplementedException();
         }
 
-        protected void MarkDirty()
+        public void CalculateLayout(CSSLayoutContext layoutContext)
         {
-            CheckDisposed();
-            Native.CSSNodeMarkDirty(_cssNode);
-        }
-
-        public bool IsTextNode
-        {
-            get
-            {
-                return Native.CSSNodeGetIsTextnode(_cssNode);
-            }
-            set
-            {
-                Native.CSSNodeSetIsTextnode(_cssNode, value);
-            }
-        }
-
-        public bool HasNewLayout
-        {
-            get
-            {
-                return Native.CSSNodeGetHasNewLayout(_cssNode);
-            }
-            set
-            {
-                Native.CSSNodeSetHasNewLayout(_cssNode, true);
-            }
-        }
-
-        public CSSDirection Direction
-        {
-            get
-            {
-                return Native.CSSNodeStyleGetDirection(_cssNode);
-            }
-            set
-            {
-                Native.CSSNodeStyleSetDirection(_cssNode, value);
-            }
-        }
-
-        public CSSFlexDirection FlexDirection
-        {
-            get
-            {
-                return Native.CSSNodeStyleGetFlexDirection(_cssNode);
-            }
-            set
-            {
-                Native.CSSNodeStyleSetFlexDirection(_cssNode, value);
-            }
-        }
-
-        public CSSJustify JustifyContent
-        {
-            get
-            {
-                return Native.CSSNodeStyleGetJustifyContent(_cssNode);
-            }
-            set
-            {
-                Native.CSSNodeStyleSetJustifyContent(_cssNode, value);
-            }
-        }
-
-        public CSSAlign AlignContent
-        {
-            get
-            {
-                return Native.CSSNodeStyleGetAlignContent(_cssNode);
-            }
-            set
-            {
-                Native.CSSNodeStyleSetAlignContent(_cssNode, value);
-            }
-        }
-
-        public CSSAlign AlignItems
-        {
-            get
-            {
-                return Native.CSSNodeStyleGetAlignItems(_cssNode);
-            }
-            set
-            {
-                Native.CSSNodeStyleSetAlignItems(_cssNode, value);
-            }
-        }
-
-        public CSSAlign AlignSelf
-        {
-            get
-            {
-                return Native.CSSNodeStyleGetAlignSelf(_cssNode);
-            }
-            set
-            {
-                Native.CSSNodeStyleSetAlignSelf(_cssNode, value);
-            }
-        }
-
-        public CSSPositionType PositionType
-        {
-            get
-            {
-                return Native.CSSNodeStyleGetPositionType(_cssNode);
-            }
-            set
-            {
-                Native.CSSNodeStyleSetPositionType(_cssNode, value);
-            }
-        }
-
-        public CSSWrapType FlexWrap
-        {
-            get
-            {
-                return Native.CSSNodeStyleGetFlexWrap(_cssNode);
-            }
-            set
-            {
-                Native.CSSNodeStyleSetFlexWrap(_cssNode, value);
-            }
+            throw new NotImplementedException();
         }
     }
 }
