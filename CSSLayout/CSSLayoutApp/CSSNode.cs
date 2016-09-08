@@ -1,28 +1,60 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
 namespace CSSLayoutApp
 {
     public class CSSNode : IDisposable, ICSSNode
     {
-        private enum LayoutState
+        private bool _isDisposed;
+        private IntPtr _cssNode;
+        private IntPtr _context;
+
+        private ICSSNode _parent;
+        private List<ICSSNode> _children;
+        private MeasureFunction _measureFunction;
+        public object _data;
+
+        private void CheckDisposed()
         {
-            DIRTY,
-
-            HAS_NEW_LAYOUT,
-
-            UP_TO_DATE
+            if (_isDisposed)
+            {
+                throw new ObjectDisposedException("CSSNode");
+            }
         }
 
-        private readonly CSSStyle _style = new CSSStyle();
-        private CSSLayout _layout = new CSSLayout();
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
 
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!_isDisposed && disposing)
+            {
+                _isDisposed = true;
+                Native.CSSNodeFree(_cssNode);
+                GCHandle.FromIntPtr(_context).Free();
+            }
+        }
 
-        private bool _isDisposed;
-        private readonly IntPtr _cssNode;
-        private readonly IntPtr _context;
+        public void Initialize()
+        {
+            _cssNode = Native.CSSNodeNew();
+            _context = (IntPtr)GCHandle.Alloc(this);
+            Native.CSSNodeSetContext(_cssNode, _context);
+            _children = new List<ICSSNode>(4);
+        }
 
-        public int LineIndex { get; set; }
+        public void Reset()
+        {
+            Native.CSSNodeFree(_cssNode);
+            GCHandle.FromIntPtr(_context).Free();
+            _children = null;
+            _parent = null;
+            _measureFunction = null;
+        }
 
         public bool IsDirty
         {
@@ -461,54 +493,18 @@ namespace CSSLayoutApp
         {
             get
             {
-                throw new NotImplementedException();
+                CheckDisposed();
+                return _children[index];
             }
         }
 
-        public CSSNode()
+        public int Count
         {
-            _cssNode = Native.CSSNodeNew();
-            _context = (IntPtr)GCHandle.Alloc(this);
-            Native.CSSNodeSetContext(_cssNode, _context);
-        }
-
-        public CSSNode(IntPtr cssNode)
-        {
-            _cssNode = cssNode;
-        }
-
-        private void CheckDisposed()
-        {
-            if (_isDisposed)
+            get
             {
-                throw new ObjectDisposedException("CSSNode");
+                CheckDisposed();
+                return _children.Count;
             }
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (!_isDisposed && disposing)
-            {
-                _isDisposed = true;
-                Native.CSSNodeFree(_cssNode);
-                GCHandle.FromIntPtr(_context).Free();
-            }
-        }
-
-        public void Initialize()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Reset()
-        {
-            throw new NotImplementedException();
         }
 
         public void MarkLayoutSeen()
@@ -523,7 +519,11 @@ namespace CSSLayoutApp
 
         public void Insert(int index, ICSSNode node)
         {
-            throw new NotImplementedException();
+            var cssNode = (CSSNode)node;
+            CheckDisposed();
+            _children.Insert(index, cssNode);
+            cssNode._parent = this;
+
         }
 
         public int IndexOf(ICSSNode node)

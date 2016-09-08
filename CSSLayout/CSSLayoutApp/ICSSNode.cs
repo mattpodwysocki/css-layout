@@ -24,6 +24,8 @@ namespace CSSLayoutApp
 
         ICSSNode this[int index] { get; }
 
+        int Count { get; set; }
+
         void Insert(int index, ICSSNode node);
 
         int IndexOf(ICSSNode node);
