@@ -10,8 +10,8 @@ namespace CSSLayoutApp
         private IntPtr _cssNode;
         private IntPtr _context;
 
-        private ICSSNode _parent;
-        private List<ICSSNode> _children;
+        private CSSNode _parent;
+        private List<CSSNode> _children;
         private MeasureFunction _measureFunction;
         public object _data;
 
@@ -44,7 +44,7 @@ namespace CSSLayoutApp
             _cssNode = Native.CSSNodeNew();
             _context = (IntPtr)GCHandle.Alloc(this);
             Native.CSSNodeSetContext(_cssNode, _context);
-            _children = new List<ICSSNode>(4);
+            _children = new List<CSSNode>(4);
         }
 
         public void Reset()
@@ -105,7 +105,8 @@ namespace CSSLayoutApp
         {
             get
             {
-                throw new NotImplementedException();
+                CheckDisposed();
+                return _parent;
             }
         }
 
@@ -121,12 +122,13 @@ namespace CSSLayoutApp
         {
             get
             {
-                throw new NotImplementedException();
+                CheckDisposed();
+                return Native.CSSNodeStyleGetDirection(_cssNode);
             }
-
             set
             {
-                throw new NotImplementedException();
+                CheckDisposed();
+                Native.CSSNodeStyleSetDirection(_cssNode, value);
             }
         }
 
@@ -134,12 +136,14 @@ namespace CSSLayoutApp
         {
             get
             {
-                throw new NotImplementedException();
+                CheckDisposed();
+                return Native.CSSNodeStyleGetFlexDirection(_cssNode);
             }
 
             set
             {
-                throw new NotImplementedException();
+                CheckDisposed();
+                Native.CSSNodeStyleSetFlexDirection(_cssNode, value);
             }
         }
 
@@ -147,12 +151,14 @@ namespace CSSLayoutApp
         {
             get
             {
-                throw new NotImplementedException();
+                CheckDisposed();
+                return Native.CSSNodeStyleGetJustifyContent(_cssNode);
             }
 
             set
             {
-                throw new NotImplementedException();
+                CheckDisposed();
+                Native.CSSNodeStyleSetJustifyContent(_cssNode, value);
             }
         }
 
@@ -160,12 +166,14 @@ namespace CSSLayoutApp
         {
             get
             {
-                throw new NotImplementedException();
+                CheckDisposed();
+                return Native.CSSNodeStyleGetAlignItems(_cssNode);
             }
 
             set
             {
-                throw new NotImplementedException();
+                CheckDisposed();
+                Native.CSSNodeStyleSetAlignItems(_cssNode, value);
             }
         }
 
@@ -173,12 +181,14 @@ namespace CSSLayoutApp
         {
             get
             {
-                throw new NotImplementedException();
+                CheckDisposed();
+                return Native.CSSNodeStyleGetAlignSelf(_cssNode);
             }
 
             set
             {
-                throw new NotImplementedException();
+                CheckDisposed();
+                Native.CSSNodeStyleSetAlignSelf(_cssNode, value);
             }
         }
 
@@ -186,12 +196,14 @@ namespace CSSLayoutApp
         {
             get
             {
-                throw new NotImplementedException();
+                CheckDisposed();
+                return Native.CSSNodeStyleGetAlignContent(_cssNode);
             }
 
             set
             {
-                throw new NotImplementedException();
+                CheckDisposed();
+                Native.CSSNodeStyleSetAlignContent(_cssNode, value);
             }
         }
 
@@ -199,12 +211,14 @@ namespace CSSLayoutApp
         {
             get
             {
-                throw new NotImplementedException();
+                CheckDisposed();
+                return Native.CSSNodeStyleGetPositionType(_cssNode);
             }
 
             set
             {
-                throw new NotImplementedException();
+                CheckDisposed();
+                Native.CSSNodeStyleSetPositionType(_cssNode, value);
             }
         }
 
@@ -212,12 +226,14 @@ namespace CSSLayoutApp
         {
             get
             {
-                throw new NotImplementedException();
+                CheckDisposed();
+                return Native.CSSNodeStyleGetFlexWrap(_cssNode);
             }
 
             set
             {
-                throw new NotImplementedException();
+                CheckDisposed();
+                Native.CSSNodeStyleSetFlexWrap(_cssNode, value);
             }
         }
 
@@ -459,7 +475,8 @@ namespace CSSLayoutApp
         {
             get
             {
-                throw new NotImplementedException();
+                CheckDisposed();
+                return Native.CSSNodeLayoutGetDirection(_cssNode);
             }
         }
 
@@ -509,7 +526,8 @@ namespace CSSLayoutApp
 
         public void MarkLayoutSeen()
         {
-            throw new NotImplementedException();
+            CheckDisposed();
+            Native.CSSNodeSetHasNewLayout(_cssNode, false);
         }
 
         public bool ValuesEqual(float f1, float f2)
@@ -517,18 +535,38 @@ namespace CSSLayoutApp
             throw new NotImplementedException();
         }
 
-        public void Insert(int index, ICSSNode node)
+        public void Insert(int index, CSSNode node)
         {
-            var cssNode = (CSSNode)node;
             CheckDisposed();
-            _children.Insert(index, cssNode);
-            cssNode._parent = this;
+            _children.Insert(index, node);
+            node._parent = this;
+            Native.CSSNodeInsertChild(_cssNode, node._cssNode, (uint)index);
+        }
+
+        public void RemoveAt(int index)
+        {
+            CheckDisposed();
+            var child = _children[index];
+            child._parent = null;
+            _children.RemoveAt(index);
+            Native.CSSNodeRemoveChild(_cssNode, child._cssNode);
+        }
+
+        public int IndexOf(CSSNode node)
+        {
+            CheckDisposed();
+            return _children.IndexOf(node);
+        }
+
+        void ICSSNode.Insert(int index, ICSSNode node)
+        {
+            Insert(index, (CSSNode)node);
 
         }
 
-        public int IndexOf(ICSSNode node)
+        int ICSSNode.IndexOf(ICSSNode node)
         {
-            throw new NotImplementedException();
+            return IndexOf((CSSNode)node);
         }
 
         public void SetMeasureFunction(MeasureFunction measureFunction)
@@ -538,7 +576,8 @@ namespace CSSLayoutApp
 
         public void CalculateLayout(CSSLayoutContext layoutContext)
         {
-            throw new NotImplementedException();
+            CheckDisposed();
+            Native.CSSNodeCalculateLayout(_cssNode, CSSConstants.UNDEFINED, CSSConstants.UNDEFINED, Native.CSSNodeStyleGetDirection(_cssNode));
         }
     }
 }

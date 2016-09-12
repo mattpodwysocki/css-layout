@@ -4,7 +4,7 @@ namespace CSSLayoutApp
 {
     public delegate void MeasureFunction(ICSSNode node, float width, CSSMeasureMode widthMode, float height, CSSMeasureMode heightMode, MeasureOutput measureOutput);
 
-    public interface ICSSNode : IDisposable
+    public interface ICSSNode
     {
         void Initialize();
 
@@ -24,11 +24,13 @@ namespace CSSLayoutApp
 
         ICSSNode this[int index] { get; }
 
-        int Count { get; set; }
+        int Count { get; }
 
         void Insert(int index, ICSSNode node);
 
         int IndexOf(ICSSNode node);
+
+        void RemoveAt(int index);
 
         ICSSNode Parent { get; }
 
