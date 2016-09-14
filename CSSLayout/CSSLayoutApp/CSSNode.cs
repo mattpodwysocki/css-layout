@@ -318,43 +318,66 @@ namespace CSSLayoutApp
             Native.CSSNodeStyleSetMargin(_cssNode, edge, value);
         }
 
-        public Spacing Padding
+        public Spacing GetPadding()
         {
-            get
-            {
-                throw new NotImplementedException();
-            }
+            CheckDisposed();
 
-            set
-            {
-                throw new NotImplementedException();
-            }
+            var padding = new Spacing();
+            padding.Set(Spacing.LEFT, Native.CSSNodeStyleGetPadding(_cssNode, CSSEdge.Left));
+            padding.Set(Spacing.TOP, Native.CSSNodeStyleGetPadding(_cssNode, CSSEdge.Top));
+            padding.Set(Spacing.RIGHT, Native.CSSNodeStyleGetPadding(_cssNode, CSSEdge.Right));
+            padding.Set(Spacing.BOTTOM, Native.CSSNodeStyleGetPadding(_cssNode, CSSEdge.Bottom));
+            padding.Set(Spacing.START, Native.CSSNodeStyleGetPadding(_cssNode, CSSEdge.Start));
+            padding.Set(Spacing.END, Native.CSSNodeStyleGetPadding(_cssNode, CSSEdge.End));
+
+            return padding;
         }
 
-        public Spacing Border
+        public void SetPadding(CSSEdge edge, float padding)
         {
-            get
-            {
-                throw new NotImplementedException();
-            }
-
-            set
-            {
-                throw new NotImplementedException();
-            }
+            CheckDisposed();
+            Native.CSSNodeStyleSetPadding(_cssNode, edge, padding);
         }
 
-        public Spacing Position
+        public Spacing GetBorder()
         {
-            get
-            {
-                throw new NotImplementedException();
-            }
+            CheckDisposed();
 
-            set
-            {
-                throw new NotImplementedException();
-            }
+            var border = new Spacing();
+            border.Set(Spacing.LEFT, Native.CSSNodeStyleGetBorder(_cssNode, CSSEdge.Left));
+            border.Set(Spacing.TOP, Native.CSSNodeStyleGetBorder(_cssNode, CSSEdge.Top));
+            border.Set(Spacing.RIGHT, Native.CSSNodeStyleGetBorder(_cssNode, CSSEdge.Right));
+            border.Set(Spacing.BOTTOM, Native.CSSNodeStyleGetBorder(_cssNode, CSSEdge.Bottom));
+            border.Set(Spacing.START, Native.CSSNodeStyleGetBorder(_cssNode, CSSEdge.Start));
+            border.Set(Spacing.END, Native.CSSNodeStyleGetBorder(_cssNode, CSSEdge.End));
+
+            return border;
+        }
+
+        public void SetBorder(CSSEdge edge, float border)
+        {
+            CheckDisposed();
+            Native.CSSNodeStyleSetBorder(_cssNode, edge, border);
+        }
+
+        public Spacing GetPosition()
+        {
+            CheckDisposed();
+
+            var position = new Spacing();
+            position.Set(Spacing.LEFT, Native.CSSNodeStyleGetPosition(_cssNode, CSSEdge.Left));
+            position.Set(Spacing.TOP, Native.CSSNodeStyleGetPosition(_cssNode, CSSEdge.Top));
+            position.Set(Spacing.RIGHT, Native.CSSNodeStyleGetPosition(_cssNode, CSSEdge.Right));
+            position.Set(Spacing.BOTTOM, Native.CSSNodeStyleGetPosition(_cssNode, CSSEdge.Bottom));
+            position.Set(Spacing.START, Native.CSSNodeStyleGetPosition(_cssNode, CSSEdge.Start));
+            position.Set(Spacing.END, Native.CSSNodeStyleGetPosition(_cssNode, CSSEdge.End));
+
+            return position;
+        }
+
+        public void SetPosition(CSSEdge edge, float position)
+        {
+            CheckDisposed();
         }
 
         public float StyleWidth

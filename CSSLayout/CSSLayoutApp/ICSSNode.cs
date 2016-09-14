@@ -68,11 +68,17 @@ namespace CSSLayoutApp
 
         void SetMargin(CSSEdge edge, float margin);
 
-        Spacing Padding { get; set; }
+        Spacing GetPadding();
 
-        Spacing Border { get; set; }
+        void SetPadding(CSSEdge edge, float padding);
 
-        Spacing Position { get; set; }
+        Spacing GetBorder();
+
+        void SetBorder(CSSEdge edge, float border);
+
+        Spacing GetPosition();
+
+        void SetPosition(CSSEdge edge, float position);
 
         float StyleWidth { get; set; }
 
