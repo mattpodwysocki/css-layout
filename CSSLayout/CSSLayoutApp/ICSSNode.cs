@@ -64,7 +64,9 @@ namespace CSSLayoutApp
 
         float FlexBasis { get; set; }
 
-        Spacing Margin { get; set; }
+        Spacing GetMargin();
+
+        void SetMargin(CSSEdge edge, float margin);
 
         Spacing Padding { get; set; }
 

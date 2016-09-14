@@ -271,12 +271,14 @@ namespace CSSLayoutApp
         {
             get
             {
-                throw new NotImplementedException();
+                CheckDisposed();
+                return Native.CSSNodeStyleGetFlexShrink(_cssNode);
             }
 
             set
             {
-                throw new NotImplementedException();
+                CheckDisposed();
+                Native.CSSNodeStyleSetFlexShrink(_cssNode, value);
             }
         }
 
@@ -284,26 +286,36 @@ namespace CSSLayoutApp
         {
             get
             {
-                throw new NotImplementedException();
+                CheckDisposed();
+                return Native.CSSNodeStyleGetFlexBasis(_cssNode);
             }
 
             set
             {
-                throw new NotImplementedException();
+                CheckDisposed();
+                Native.CSSNodeStyleSetFlexBasis(_cssNode, value);
             }
         }
 
-        public Spacing Margin
+        public Spacing GetMargin()
         {
-            get
-            {
-                throw new NotImplementedException();
-            }
+            CheckDisposed();
 
-            set
-            {
-                throw new NotImplementedException();
-            }
+            var margin = new Spacing();
+            margin.Set(Spacing.LEFT, Native.CSSNodeStyleGetMargin(_cssNode, CSSEdge.Left));
+            margin.Set(Spacing.TOP, Native.CSSNodeStyleGetMargin(_cssNode, CSSEdge.Top));
+            margin.Set(Spacing.RIGHT, Native.CSSNodeStyleGetMargin(_cssNode, CSSEdge.Right));
+            margin.Set(Spacing.BOTTOM, Native.CSSNodeStyleGetMargin(_cssNode, CSSEdge.Bottom));
+            margin.Set(Spacing.START, Native.CSSNodeStyleGetMargin(_cssNode, CSSEdge.Start));
+            margin.Set(Spacing.END, Native.CSSNodeStyleGetMargin(_cssNode, CSSEdge.End));
+
+            return margin;
+        }
+
+        public void SetMargin(CSSEdge edge, float value)
+        {
+            CheckDisposed();
+            Native.CSSNodeStyleSetMargin(_cssNode, edge, value);
         }
 
         public Spacing Padding
