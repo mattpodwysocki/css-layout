@@ -414,12 +414,14 @@ namespace CSSLayoutApp
         {
             get
             {
-                throw new NotImplementedException();
+                CheckDisposed();
+                return Native.CSSNodeStyleGetMaxWidth(_cssNode);
             }
 
             set
             {
-                throw new NotImplementedException();
+                CheckDisposed();
+                Native.CSSNodeStyleSetMaxWidth(_cssNode, value);
             }
         }
 
@@ -427,12 +429,14 @@ namespace CSSLayoutApp
         {
             get
             {
-                throw new NotImplementedException();
+                CheckDisposed();
+                return Native.CSSNodeStyleGetMaxHeight(_cssNode);
             }
 
             set
             {
-                throw new NotImplementedException();
+                CheckDisposed();
+                Native.CSSNodeStyleSetMaxHeight(_cssNode, value);
             }
         }
 
@@ -440,12 +444,14 @@ namespace CSSLayoutApp
         {
             get
             {
-                throw new NotImplementedException();
+                CheckDisposed();
+                return Native.CSSNodeStyleGetMinWidth(_cssNode);
             }
 
             set
             {
-                throw new NotImplementedException();
+                CheckDisposed();
+                Native.CSSNodeStyleSetMinWidth(_cssNode, value);
             }
         }
 
@@ -453,12 +459,14 @@ namespace CSSLayoutApp
         {
             get
             {
-                throw new NotImplementedException();
+                CheckDisposed();
+                return Native.CSSNodeStyleGetMinHeight(_cssNode);
             }
 
             set
             {
-                throw new NotImplementedException();
+                CheckDisposed();
+                Native.CSSNodeStyleSetMinHeight(_cssNode, value);
             }
         }
 
