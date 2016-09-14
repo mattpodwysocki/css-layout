@@ -399,12 +399,14 @@ namespace CSSLayoutApp
         {
             get
             {
-                throw new NotImplementedException();
+                CheckDisposed();
+                return Native.CSSNodeStyleGetHeight(_cssNode);
             }
 
             set
             {
-                throw new NotImplementedException();
+                CheckDisposed();
+                Native.CSSNodeStyleSetHeight(_cssNode, value);
             }
         }
 
