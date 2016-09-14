@@ -384,12 +384,14 @@ namespace CSSLayoutApp
         {
             get
             {
-                throw new NotImplementedException();
+                CheckDisposed();
+                return Native.CSSNodeStyleGetWidth(_cssNode);
             }
 
             set
             {
-                throw new NotImplementedException();
+                CheckDisposed();
+                Native.CSSNodeStyleSetWidth(_cssNode, value);
             }
         }
 
